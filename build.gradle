@@ -12,6 +12,12 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    compile(
+            'org.projectlombok:lombok:1.16.12'
+    )
+}
+
 import io.franzbecker.gradle.lombok.task.DelombokTask
 
 task delombok(type: DelombokTask, dependsOn: compileJava) {
