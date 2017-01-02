@@ -1,0 +1,28 @@
+plugins {
+    id "java"
+    id "io.franzbecker.gradle-lombok" version "1.8"
+}
+
+group 'bensullivan.net'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+import io.franzbecker.gradle.lombok.task.DelombokTask
+
+task delombok(type: DelombokTask, dependsOn: compileJava) {
+    ext.outputDir = file("$buildDir/delombok")
+    outputs.dir(outputDir)
+    sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+        args(it, "-d", outputDir)
+    }
+}
+
+task delombokHelp(type: DelombokTask) {
+    args "--help"
+}
